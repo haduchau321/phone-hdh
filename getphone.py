@@ -21,19 +21,5 @@ async def home(key:str):
     phones = random_with_N_digits(7)
     dau_so = ['+8470','+8479','+8477','+8476','+8478','+8492','+8456','+8458','+8488','+8490','+8493']
     phone = random.choice(dau_so)+str(phones)
-    data = {
-            'email': phone,
-            'pass': '1'
-            }
-    s = requests.session()
-    out = s.post('https://mbasic.facebook.com/login.php',data=data)
-    return out.text
-    kt = s.get('https://mbasic.facebook.com/login/device-based/ar/login/',cookies=out.cookies)
-    kt_out = str(kt.text).find('identify_search_description')
-    if kt_out != -1:
-        tinhtrang = 'Chưa Tạo Tài Khoản Facebook'
-    else:
-        tinhtrang = 'Đã Tạo Tài Khoản Facebook'
-
-    data =  {'phone':phone,'status':tinhtrang,'sever_id':kt_out,'license':'Hà Đức Hậu'}
+    data =  {'phone':phone,'status':true,'license':'Hà Đức Hậu'}
     return data
