@@ -28,7 +28,7 @@ async def home(key:str):
     s = requests.session()
     out = s.post('https://mbasic.facebook.com/login.php',data=data)
     kt = s.get('https://mbasic.facebook.com/login/device-based/ar/login/',cookies=out.cookies)
-    print(out.text)
+    return out.text
     kt_out = str(kt.text).find('identify_search_description')
     if kt_out < 0:
         tinhtrang = 'Chưa Tạo Tài Khoản Facebook'
