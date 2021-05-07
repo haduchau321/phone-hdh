@@ -28,12 +28,11 @@ async def home(key:str):
     s = requests.session()
     out = s.post('https://mbasic.facebook.com/login.php',data=data)
     kt = s.get('https://mbasic.facebook.com/login/device-based/ar/login/',cookies=out.cookies)
-    return kt.text
     kt_out = str(kt.text).find('identify_search_description')
-    if kt_out < 0:
+    if kt_out != -1:
         tinhtrang = 'Chưa Tạo Tài Khoản Facebook'
     else:
         tinhtrang = 'Đã Tạo Tài Khoản Facebook'
 
-    data =  {'phone':phone,'status':tinhtrang,'license':'Hà Đức Hậu'}
+    data =  {'phone':phone,'status':tinhtrang,'sever_id':kt_out,'license':'Hà Đức Hậu'}
     return data
