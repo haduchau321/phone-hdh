@@ -1,20 +1,38 @@
 from fastapi import FastAPI
 import random
 from random import randint
+import requests
 
-
+listkey = ['baodeonghe','randomphone','damchomayphat']
 app = FastAPI()
 
-@app.get('/')
-async def home():
+@app.get('/getphone/key={key}')
+async def home(key:str):
+    loi = 1
+    for acc in listkey:
+        if acc == key:
+            loi = 0
+    if loi == 1:
+        return {'status','key Sai hoặc hết hạn'}
     def random_with_N_digits(n):
         range_start = 10**(n-1)
         range_end = (10**n)-1
         return randint(range_start, range_end)
     phones = random_with_N_digits(7)
     dau_so = ['+8470','+8479','+8477','+8476','+8478','+8492','+8456','+8458','+8488','+8490','+8493']
-    data =  {'phone':random.choice(dau_so)+str(phones),'license':'Hà Đứu Hậu'}
-    return data 
+    phone = random.choice(dau_so)+str(phones)
+    data = {
+            'email': phone,
+            'pass': '1'
+            }
+    s = requests.session()
+    out = s.post('https://mbasic.facebook.com/login.php',data=data)
+    kt = s.get('https://mbasic.facebook.com/login/device-based/ar/login/',cookies=out.cookies)
+    kt_out = str(kt.text).find('identify_search_description')
+    if kt_out < 0:
+        tinhtrang = 'Chưa Tạo Tài Khoản Facebook'
+    else:
+        tinhtrang = 'Đã Tạo Tài Khoản Facebook'
 
-
-
+    data =  {'phone':phone,'status':tinhtrang,'license':'Hà Đức Hậu'}
+    return data
