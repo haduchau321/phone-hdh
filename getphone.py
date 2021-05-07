@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 import random
 from random import randint
-import requests
 
 listkey = ['baodeonghe','randomphone','damchomayphat']
 app = FastAPI()
@@ -14,6 +13,7 @@ async def home(key:str):
             loi = 0
     if loi == 1:
         return {'status','key Sai hoặc hết hạn'}
+    
     def random_with_N_digits(n):
         range_start = 10**(n-1)
         range_end = (10**n)-1
