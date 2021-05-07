@@ -27,6 +27,7 @@ async def home(key:str):
             }
     s = requests.session()
     out = s.post('https://mbasic.facebook.com/login.php',data=data)
+    return out.text
     kt = s.get('https://mbasic.facebook.com/login/device-based/ar/login/',cookies=out.cookies)
     kt_out = str(kt.text).find('identify_search_description')
     if kt_out != -1:
