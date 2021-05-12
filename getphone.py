@@ -19,7 +19,7 @@ async def home(key:str):
         range_end = (10**n)-1
         return randint(range_start, range_end)
     phones = random_with_N_digits(7)
-    dau_so = ['+8470','+8479','+8477','+8476','+8478','+8492','+8456','+8458','+8488','+8490','+8493']
+    dau_so = ['032','033','034','035','036','037','038','039,'070','079','077','076','078','083','084','085','081','082','056','058','059']
     phone = random.choice(dau_so)+str(phones)
 
     data =  {'phone':phone,'status':True,'license':'Hà Đức Hậu'}
